@@ -1,12 +1,15 @@
+-- Function to check if the device is mobile
 local function isMobile()
     return game:GetService("UserInputService"):GetPlatform() == Enum.UserInputPlatform.Gamepad or Enum.UserInputPlatform.Touch
 end
 
+-- Kick the player if they are not on a mobile device
 if not isMobile() then
     game.Players.LocalPlayer:Kick("Mobile And Tablet Devices Only!")
     return
 end
 
+-- Function to create the password input GUI
 local function createGUI()
     local screenGui = Instance.new("ScreenGui")
     screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -46,6 +49,7 @@ local function createGUI()
     submitButton.Font = Enum.Font.SourceSans
     submitButton.Parent = frame
 
+    -- Handle password submission
     submitButton.MouseButton1Click:Connect(function()
         if passwordBox.Text == "expl0!tHUB" then
             title.Text = "Welcome Please Click Continue"
@@ -56,6 +60,7 @@ local function createGUI()
         end
     end)
 
+    -- Load the loader script when the continue button is clicked
     submitButton.MouseButton1Click:Connect(function()
         if submitButton.Text == "Continue" then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/your-username/Expl0itHUB-Script/main/loader.lua"))()
@@ -63,4 +68,5 @@ local function createGUI()
     end)
 end
 
+-- Create the GUI
 createGUI()
