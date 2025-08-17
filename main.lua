@@ -1,6 +1,7 @@
 -- Function to check if the device is mobile
 local function isMobile()
-    return game:GetService("UserInputService"):GetPlatform() == Enum.UserInputPlatform.Gamepad or Enum.UserInputPlatform.Touch
+    local uis = game:GetService("UserInputService")
+    return uis.TouchEnabled or uis.GamepadEnabled
 end
 
 -- Kick the player if they are not on a mobile device
@@ -11,8 +12,10 @@ end
 
 -- Function to create the password input GUI
 local function createGUI()
+    local player = game.Players.LocalPlayer
     local screenGui = Instance.new("ScreenGui")
-    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    screenGui.ResetOnSpawn = false
+    screenGui.Parent = player:WaitForChild("PlayerGui")
 
     local frame = Instance.new("Frame")
     frame.Size = UDim2.new(0, 300, 0, 400)
@@ -37,6 +40,7 @@ local function createGUI()
     passwordBox.TextColor3 = Color3.fromRGB(0, 0, 0)
     passwordBox.Text = ""
     passwordBox.PlaceholderText = "Password"
+    passwordBox.ClearTextOnFocus = false
     passwordBox.Font = Enum.Font.SourceSans
     passwordBox.Parent = frame
 
@@ -56,7 +60,7 @@ local function createGUI()
             submitButton.Text = "Continue"
             submitButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
         else
-            game.Players.LocalPlayer:Kick("Wrong Password.")
+            player:Kick("Wrong Password.")
         end
     end)
 
